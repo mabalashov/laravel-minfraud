@@ -31,11 +31,13 @@ LaravelMinfraud\LaravelMinfraudServiceProvider::class
 
 Publish the package:
 ```
-php artisan vendor:publish` => `LaravelMinfraud\LaravelMinfraudServiceProvider
+php artisan vendor:publish => LaravelMinfraud\LaravelMinfraudServiceProvider
 ```
 
 Change your configs in `config/minfraud.php`:
 ```
+    'enabled' => env('MINFRAUD_ENABLED', false),
+
     'account_id' => env('MINFRAUD_ACCOUNT_ID', null),
     'account_key' => env('MINFRAUD_ACCOUNT_KEY', null),
 
@@ -51,3 +53,5 @@ protected $middlewareGroups = [
         LaravelMinfraud\Middlewares\MinfraudDenyProxiesMiddleware::class,
     ],
 ```
+
+Do not forget to set MINFRAUD_ENABLED = `true` 

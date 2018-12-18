@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'enabled' => env('MINFRAUD_ENABLED', false),
+
     'account_id' => env('MINFRAUD_ACCOUNT_ID', null),
     'account_key' => env('MINFRAUD_ACCOUNT_KEY', null),
 
