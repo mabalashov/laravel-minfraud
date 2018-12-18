@@ -1,0 +1,33 @@
+{
+    "name": "mabalashov/laravel-minfraud",
+    "type": "Laravel Package",
+    "keywords": [
+        "php",
+        "laravel",
+        "minfraud"
+    ],
+    "authors": [
+        {
+            "name": "Mikhail Balashov",
+            "email": "mabalashov.work@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "laravel/framework": "5.6.*|5.7.*",
+        "maxmind/minfraud": "~1.0"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-0": {
+            "LaravelMinfraud": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "aliases": {
+                "Cache": "Illuminate\\Support\\Facades\\Cache"
+            }
+        }
+    }
+}
