@@ -58,6 +58,6 @@ class MinfraudService implements MinfraudServiceInterface
 
     private function hashRequest(Request $request): string
     {
-        return md5($request->headers);
+        return md5($request->ip() . $request->userAgent() . $request->headers->get('Accept-Language'));
     }
 }
