@@ -30,8 +30,8 @@ class MinfraudService implements MinfraudServiceInterface
     {
         $cacheKey = $this->hashRequest($request);
 
-        return Cache::get($cacheKey, function() use ($request) {
-            return $this->getRiskScoreValue($request);
+        return Cache::remember($cacheKey, $this->config->get('cache_timeout'), function() use ($request) {
+            return $this->getRiskScoreValue($request) > $this->config->get('max_risk_score');
         });
     }
 
