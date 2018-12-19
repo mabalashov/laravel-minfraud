@@ -31,7 +31,7 @@ class MinfraudService implements MinfraudServiceInterface
         $cacheKey = $this->hashRequest($request);
 
         return Cache::get($cacheKey, function() use ($request) {
-            $this->getRiskScoreValue($request);
+            return $this->getRiskScoreValue($request);
         });
     }
 
