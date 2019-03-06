@@ -62,7 +62,7 @@ class MinfraudService implements MinfraudServiceInterface
 
     private function isWhitelisted(Request $request): bool
     {
-        $whitelist = $this->config->get('minfraud.whitelist_ip');
+        $whitelist = $this->config->get('whitelist_ip');
 
         if (!$whitelist) {
             return false;
