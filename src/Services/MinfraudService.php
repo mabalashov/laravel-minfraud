@@ -34,8 +34,8 @@ class MinfraudService implements MinfraudServiceInterface
 
         $cacheKey = $this->hashRequest($request);
 
-        return Cache::get($cacheKey, function() use ($request) {
-            $this->getRiskScoreValue($request);
+        return Cache::remember($cacheKey, $this->config->get('cache_timeout'), function() use ($request) {
+            return $this->getRiskScoreValue($request) > $this->config->get('max_risk_score');
         });
     }
 
@@ -62,7 +62,7 @@ class MinfraudService implements MinfraudServiceInterface
 
     private function isWhitelisted(Request $request): bool
     {
-        $whitelist = config('minfraud.whitelist_ip');
+        $whitelist = $this->config->get('minfraud.whitelist_ip');
 
         if (!$whitelist) {
             return false;
@@ -75,6 +75,6 @@ class MinfraudService implements MinfraudServiceInterface
 
     private function hashRequest(Request $request): string
     {
-        return md5($request->headers);
+        return md5($request->ip() . $request->userAgent() . $request->headers->get('Accept-Language'));
     }
 }
