@@ -28,6 +28,10 @@ class MinfraudService implements MinfraudServiceInterface
 
     public function isProxiedRequest(Request $request): bool
     {
+        if ($this->isWhitelisted($request)) {
+            return false;
+        }
+
         $cacheKey = $this->hashRequest($request);
 
         return Cache::get($cacheKey, function() use ($request) {
@@ -54,6 +58,19 @@ class MinfraudService implements MinfraudServiceInterface
         ]);
 
         return $minFraudRequest->score();
+    }
+
+    private function isWhitelisted(Request $request): bool
+    {
+        $whitelist = config('minfraud.whitelist_ip');
+
+        if (!$whitelist) {
+            return false;
+        }
+
+        $whitelistIps = explode(',', $whitelist);
+
+        return \in_array($request->ip(), $whitelistIps, true);
     }
 
     private function hashRequest(Request $request): string
